@@ -6,10 +6,10 @@ import { QueryStatus } from '@reduxjs/toolkit/query';
 
 import { flaskBackendAxiosInstanceNew } from '../axios/axios';
 
-export const submitFeedback = createAsyncThunk("/pank2ReviewPage",
+export const submitFeedback = createAsyncThunk("/mai-t1d-feedback", // TODO: Update to MAI-T1D endpoint
     async (payload) => {
         return await flaskBackendAxiosInstanceNew
-            .post("/pank2ReviewPage", {
+            .post("/mai-t1d-feedback", { // TODO: Update to MAI-T1D endpoint
                 type: "insert",
                 information: payload
             }, {

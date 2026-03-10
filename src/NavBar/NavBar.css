@@ -1,0 +1,87 @@
+.mai-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  min-height: 72px;
+  flex-shrink: 0;
+  padding: 0 134px;
+  background: #ffffff;
+  border-bottom: 1px solid #d9d9d9;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.mai-navbar-logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.mai-navbar-logo .logo-highlight {
+  color: #406eb4;
+}
+
+.mai-navbar-logo .logo-text {
+  color: #2c2c2b;
+}
+
+.mai-navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+.mai-navbar-link {
+  font-size: 16px;
+  font-weight: 400;
+  color: #2c2c2b;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 2px 0;
+  white-space: nowrap;
+  transition: color 0.2s;
+  border-bottom: 4px solid transparent;
+}
+
+/* Reserve space for bold text so active state doesn't shift layout */
+.mai-navbar-link::after {
+  content: attr(data-label);
+  display: block;
+  font-weight: 700;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.mai-navbar-link:hover {
+  color: #406eb4;
+}
+
+.mai-navbar-link.active {
+  font-size: 16px;
+  font-weight: 700;
+  color: #406eb4;
+  border-bottom-color: #406eb4;
+}
+
+@media (max-width: 1200px) {
+  .mai-navbar {
+    padding: 0 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mai-navbar {
+    padding: 0 20px;
+  }
+
+  .mai-navbar-links {
+    gap: 24px;
+  }
+}

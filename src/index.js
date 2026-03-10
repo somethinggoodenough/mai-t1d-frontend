@@ -10,78 +10,47 @@ import {
   Routes,
 } from 'react-router-dom';
 
-import { Container } from '@mui/material';
+import {
+  Container,
+  StyledEngineProvider,
+  ThemeProvider,
+} from '@mui/material';
 
-import AgentLandingPage from './components/AgentLandingPage';
-import DebugPage from './components/Debug';
-import IgvPage from './components/GeDebug';
-import IntermediatePage from './components/IntermediatePage';
-import LandingPage from './components/LandingPage';
-import MatchPage from './components/MatchPage';
-import PkbFooter from './Footer/footer';
+import MaiFooter from './Footer/footer';
 import NavBar from './NavBar';
-import ApiPage from './pages/ApiPage';
-import DocPage from './pages/DocPage';
-import Ontology from './pages/Ontology';
-import Pipeline from './pages/Pipeline';
-import QTLDataSource from './pages/QTL_data_source';
-import ReviewPage from './pages/ReviewPage';
-import StatPage from './pages/StatPage';
-import Tutorial from './pages/Tutorial';
-import UsecasesPage from './pages/UsecasePage';
+import AIChatPage from './pages/AIChatPage';
+import ExploreDataPage from './pages/ExploreDataPage';
 import { store } from './redux/store';
-import ResultPage from './SearchResult';
-import { AgentResultLayout } from './SearchResult/AgentResult';
-import ResultPageNew from './SearchResult/index_new';
-import ResultPage2 from './SearchResult/resultpage';
-import ResultPageNew2 from './SearchResult/resultpage_new';
+import theme from './theme/theme';
+
+const appTheme = theme();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <Container disableGutters maxWidth={false} sx={{
-      padding: 0, margin: 0, minHeight: '100%',
-      display: 'flex', flexDirection: 'column'
-    }}>
-      <BrowserRouter>
-        <div style={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
-          <NavBar />
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-            <Routes>
-              <Route path="/pipeline" element={<Pipeline />} />
-              <Route path="/qtldatasource" element={<QTLDataSource />} />
-              <Route path="/intermediate" element={<IntermediatePage />} />
-              <Route path="/ontology" element={<Ontology />} />
-              <Route path="/statistics" element={<StatPage />} />
-              <Route path="/api" element={<ApiPage />} />
-              <Route path="/tutorial" element={<Tutorial />} />
-              <Route path="/result" element={<ResultPage />} />
-              <Route
-                path="/result-new"
-                element={<AgentResultLayout ResultView={ResultPageNew} allowMulti={false} allowSearch={false} />}
-              />
-              <Route path="/resultpage" element={<ResultPage2 />} />
-              <Route
-                path="/result-new2"
-                element={<AgentResultLayout ResultView={ResultPageNew2} allowMulti={false} allowSearch={false} />}
-              />
-              <Route path="/usecases" element={<UsecasesPage />} />
-              <Route path="/docs/*" element={<DocPage />} />
-              <Route path="/match" element={<MatchPage />} />
-              <Route path="/review/*" element={<ReviewPage />} />
-              <Route path="/agent-landing" element={<AgentLandingPage />} />
-              <Route path="/result2" element={<ResultPage2 />} />
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/debug" element={<DebugPage />} />
-              <Route path="/igv" element={<IgvPage />} />
-              <Route path="/agent-result" element={<AgentResultLayout ResultView={ResultPageNew2} allowMulti={false} allowSearch={false} />} />
-              <Route path="*" element={<LandingPage />} />
-            </Routes>
-          </div>
-          <PkbFooter />
-        </div>
-      </BrowserRouter>
-
-    </Container>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={appTheme}>
+        <Container disableGutters maxWidth={false} sx={{
+          padding: 0, margin: 0, minHeight: '100%',
+          display: 'flex', flexDirection: 'column'
+        }}>
+          <BrowserRouter>
+            <div style={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
+              <NavBar />
+              <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                <Routes>
+                  <Route path="/" element={<div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><h2>Home - Coming Soon</h2></div>} />
+                  <Route path="/explore-data" element={<ExploreDataPage />} />
+                  <Route path="/ai-chat" element={<AIChatPage />} />
+                  <Route path="/publication" element={<div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><h2>Publication - Coming Soon</h2></div>} />
+                  <Route path="*" element={<div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><h2>Page Not Found</h2></div>} />
+                </Routes>
+              </div>
+              <MaiFooter />
+            </div>
+          </BrowserRouter>
+        </Container>
+      </ThemeProvider>
+    </StyledEngineProvider>
   </Provider>
 );

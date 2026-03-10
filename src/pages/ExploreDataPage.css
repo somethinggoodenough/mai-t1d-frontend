@@ -1,0 +1,373 @@
+/* ===== Explore Data Page ===== */
+
+.explore-data-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+/* --- Toolbar row --- */
+.explore-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 134px 12px;
+  background: #fff;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.filters-heading {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 24px;
+  color: #406eb4;
+}
+
+.toolbar-buttons {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.btn-clear,
+.btn-apply {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 24px;
+  border-radius: 8px;
+  padding: 4px 12px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-clear {
+  background: #fff;
+  color: #406eb4;
+  border: 1px solid #d1d5dc;
+}
+
+.btn-apply {
+  background: #406eb4;
+  color: #fff;
+}
+
+.btn-clear:hover {
+  background: #f5f7fa;
+}
+
+.btn-apply:hover {
+  background: #365d9a;
+}
+
+/* --- Density toggle --- */
+.toolbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.density-toggle {
+  display: flex;
+  align-items: center;
+  border: 1px solid #d1d5dc;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.density-option {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 24px;
+  padding: 4px 12px;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: #406eb4;
+  border-radius: 8px;
+}
+
+.density-option.density-active {
+  background: #406eb4;
+  color: #fff;
+  border: 1px solid #406eb4;
+}
+
+/* --- Body: sidebar + content --- */
+.explore-body {
+  display: flex;
+  flex: 1;
+  padding: 0 134px;
+  gap: 32px;
+}
+
+/* --- Filter sidebar --- */
+.filter-sidebar {
+  width: 398px;
+  min-width: 280px;
+  flex-shrink: 0;
+}
+
+.filter-section {
+  border-top: 1px solid #406eb4;
+}
+
+.filter-section:last-child {
+  border-bottom: 1px solid #406eb4;
+}
+
+.filter-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.filter-section-header-open {
+  background: #d9e2f0;
+  padding: 16px 12px;
+  margin: 0 -12px;
+  width: calc(100% + 24px);
+  border-radius: 0;
+}
+
+.filter-section-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  color: #406eb4;
+}
+
+.chevron-icon {
+  transition: transform 0.2s ease;
+}
+
+.chevron-icon.chevron-open {
+  transform: rotate(180deg);
+}
+
+.filter-section-body {
+  padding: 0 0 16px;
+}
+
+.filter-placeholder {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  color: #86837e;
+  margin: 0;
+}
+
+/* --- Main content area --- */
+.explore-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* --- Responsive --- */
+@media (max-width: 1200px) {
+  .explore-toolbar {
+    padding: 24px 40px 12px;
+  }
+  .explore-body {
+    padding: 0 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .explore-toolbar {
+    padding: 16px 20px 8px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .explore-body {
+    flex-direction: column;
+    padding: 0 20px;
+  }
+  .filter-sidebar {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+/* ===== Filter Group Layout ===== */
+
+.filter-group {
+  border-top: 1px solid #406eb4;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filter-group-header {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #333;
+}
+
+.filter-group-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filter-group-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ===== Reusable Checkbox ===== */
+
+.filter-cb-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.filter-cb-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.filter-cb-box {
+  width: 16px;
+  height: 16px;
+  border: 1.6px solid #d1d5dc;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.filter-cb-box-active {
+  background: #406eb4;
+  border-color: #406eb4;
+}
+
+.filter-cb-text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #364153;
+}
+
+.filter-cb-checked .filter-cb-text {
+  font-weight: 600;
+  color: #406eb4;
+}
+
+.filter-cb-extra-icon {
+  display: flex;
+  align-items: center;
+  margin-left: 2px;
+}
+
+/* ===== Checkbox Grid (2-col) ===== */
+
+.filter-cb-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 16px;
+}
+
+/* ===== Slider Row (checkbox + slider) ===== */
+
+.filter-slider-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.filter-slider-row .filter-cb-label {
+  width: 170px;
+  padding: 8px 12px;
+}
+
+.filter-slider-container {
+  width: 177px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* For BMI / HbA1c: checkbox-only label is narrow, slider takes more space */
+.filter-slider-row-single {
+  gap: 8px;
+}
+
+.filter-cb-label-narrow {
+  width: auto;
+  padding: 4px 0;
+}
+
+.filter-slider-container-wide {
+  flex: 1;
+  width: auto;
+}
+
+.filter-slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
+  color: #a5a5a5;
+  margin-top: -2px;
+}
+
+.filter-label-active {
+  color: #406eb4;
+}
+
+/* ===== Or / And Toggle ===== */
+
+.relation-toggle {
+  display: flex;
+  align-items: center;
+  border: 1px solid #d1d5dc;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.relation-btn {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 22px;
+  padding: 2px 12px;
+  border: none;
+  cursor: pointer;
+  background: #fff;
+  color: #86837e;
+}
+
+.relation-btn-active {
+  background: #406eb4;
+  color: #fff;
+}

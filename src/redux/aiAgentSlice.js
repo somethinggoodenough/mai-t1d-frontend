@@ -36,7 +36,7 @@ export const queryAiAgent = createAsyncThunk(
 
     try {
       const response = await axios.post(
-        "https://agent.pankgraph.org/query",
+        "https://agent.pankgraph.org/query", // TODO: Update to MAI-T1D endpoint
         payload,
         {
           headers: {

@@ -1,10 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 body {
   margin: 0;
   padding: 0;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -12,16 +11,20 @@ body {
 html,
 body,
 #root {
-  height: 100%;
+  min-height: 100%;
   margin: 0;
   display: flex;
-  /* ✅ make root flex */
   flex-direction: column;
-  /* typical layout direction */
+}
+
+html {
+  height: 100%;
 }
 
 #root {
+  flex: 1;
   overflow-y: auto;
+  scrollbar-gutter: stable;
 }
 
 code {
