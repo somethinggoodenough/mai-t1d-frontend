@@ -20,6 +20,8 @@
   display: flex;
   align-items: center;
   gap: 24px;
+  width: 398px;
+  justify-content: space-between;
 }
 
 .filters-heading {
@@ -138,8 +140,6 @@
 .filter-section-header-open {
   background: #d9e2f0;
   padding: 16px 12px;
-  margin: 0 -12px;
-  width: calc(100% + 24px);
   border-radius: 0;
 }
 
