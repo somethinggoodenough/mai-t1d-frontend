@@ -170,11 +170,206 @@ const INITIAL_SAMPLE_FILTERS = {
   dataModalityRelation: 'and',
 };
 
+const MOCK_DONOR_CARDS = [
+  {
+    id: 'HPAP-001',
+    age: '47',
+    sex: 'Male',
+    bmi: '32.2',
+    diseaseStatus: 'T2D',
+    program: 'HPAP',
+    doi: '11',
+    cellType: 'Exocrine',
+    marker: 'CD117',
+    region: 'Sagittal, Head',
+    otherTags: 'T2DM Gastric Bypass, No Stage, FFPE, Oxygen Consumption, etc.',
+  },
+  {
+    id: 'HPAP-002',
+    age: '26',
+    sex: 'Male',
+    bmi: '16.4',
+    diseaseStatus: 'T1D',
+    program: 'HPAP',
+    doi: '11',
+    cellType: 'Exocrine',
+    marker: 'CD117',
+    region: 'Sagittal, Head',
+    otherTags: 'Stage 3, 3 -7 yrs, FFPE, Oxygen Consumption, Perifusion',
+  },
+  {
+    id: 'HPAP-003',
+    age: '29',
+    sex: 'Male',
+    bmi: '24.5',
+    diseaseStatus: 'AAB+',
+    program: 'HPAP',
+    doi: '11',
+    cellType: 'Exocrine',
+    marker: 'CD117',
+    region: 'Sagittal, Head',
+    otherTags: 'T1D Control, No Stage, Unknown, FFPE, Perifusion, TCR-seq',
+  },
+  {
+    id: 'HPAP-004',
+    age: '24',
+    sex: 'Female',
+    bmi: '32.2',
+    diseaseStatus: 'ND',
+    program: 'HPAP',
+    doi: '11',
+    cellType: 'Exocrine',
+    marker: 'CD117',
+    region: 'Sagittal, Head',
+    otherTags: 'T1D Control, No Stage, Unknown, FFPE, Perifusion, TCR-seq',
+  },
+  {
+    id: 'HPAP-005',
+    age: '14',
+    sex: 'Female',
+    bmi: '24.1',
+    diseaseStatus: 'ND',
+    program: 'HPAP',
+    doi: '11',
+    cellType: 'Exocrine',
+    marker: 'CD117',
+    region: 'Sagittal, Head',
+    otherTags: 'T1D Control, No Stage, Unknown, FFPE, Perifusion, TCR-seq',
+  },
+  {
+    id: 'HPAP-006',
+    age: '46',
+    sex: 'Male',
+    bmi: '19.1',
+    diseaseStatus: 'ND',
+    program: 'HPAP',
+    doi: '11',
+    cellType: 'Exocrine',
+    marker: 'CD117',
+    region: 'Sagittal, Head',
+    otherTags: 'T1D Control, No Stage, Unknown, FFPE, Perifusion, TCR-seq',
+  },
+  {
+    id: 'HPAP-007',
+    age: '35',
+    sex: 'Female',
+    bmi: '22.5',
+    diseaseStatus: 'AAB',
+    program: 'HPAP',
+    doi: '11',
+    cellType: 'Exocrine',
+    marker: 'CD117',
+    region: 'Sagittal, Head',
+    otherTags: 'T1D Control, Stage 1, 3 yrs, FFPE, Calcium Imaging',
+  },
+  {
+    id: 'HPAP-008',
+    age: '35',
+    sex: 'Female',
+    bmi: '22.5',
+    diseaseStatus: 'AAB',
+    program: 'HPAP',
+    doi: '11',
+    cellType: 'Exocrine',
+    marker: 'CD117',
+    region: 'Sagittal, Head',
+    otherTags: 'T1D Control, Stage 1, 3 yrs, FFPE, Calcium Imaging',
+  },
+  {
+    id: 'HPAP-009',
+    age: '35',
+    sex: 'Female',
+    bmi: '22.5',
+    diseaseStatus: 'AAB',
+    program: 'HPAP',
+    doi: '11',
+    cellType: 'Exocrine',
+    marker: 'CD117',
+    region: 'Sagittal, Head',
+    otherTags: 'T1D Control, Stage 1, 3 yrs, FFPE, Calcium Imaging',
+  },
+  {
+    id: 'HPAP-045',
+    age: '35',
+    sex: 'Female',
+    bmi: '22.5',
+    diseaseStatus: 'AAB',
+    program: 'HPAP',
+    doi: '11',
+    cellType: 'Exocrine',
+    marker: 'CD117',
+    region: 'Sagittal, Head',
+    otherTags: 'T1D Control, Stage 1, 3 yrs, FFPE, Calcium Imaging',
+  },
+];
+
+function DonorCard({ donor }) {
+  return (
+    <article className="donor-card">
+      <h3 className="donor-card-title">{donor.id}</h3>
+
+      <div className="donor-card-body">
+        <div className="donor-card-topline">
+          <div className="donor-card-inline-pair">
+            <span className="donor-card-label">Age</span>
+            <span className="donor-card-value">{donor.age}</span>
+          </div>
+          <div className="donor-card-inline-pair">
+            <span className="donor-card-label">Sex</span>
+            <span className="donor-card-value">{donor.sex}</span>
+          </div>
+          <div className="donor-card-inline-pair">
+            <span className="donor-card-label">BMI</span>
+            <span className="donor-card-value">{donor.bmi}</span>
+          </div>
+        </div>
+
+        <div className="donor-card-detail-list">
+          <div className="donor-card-detail-row">
+            <span className="donor-card-label">Disease Status</span>
+            <span className="donor-card-value">{donor.diseaseStatus}</span>
+          </div>
+          <div className="donor-card-detail-row">
+            <span className="donor-card-label">Program</span>
+            <span className="donor-card-value">{donor.program}</span>
+          </div>
+          <div className="donor-card-detail-row">
+            <span className="donor-card-label">DOI</span>
+            <span className="donor-card-value">{donor.doi}</span>
+          </div>
+          <div className="donor-card-detail-row">
+            <span className="donor-card-label">Cell Type</span>
+            <span className="donor-card-value">{donor.cellType}</span>
+          </div>
+          <div className="donor-card-detail-row">
+            <span className="donor-card-label">Marker</span>
+            <span className="donor-card-value">{donor.marker}</span>
+          </div>
+          <div className="donor-card-detail-row">
+            <span className="donor-card-label">Region</span>
+            <span className="donor-card-value">{donor.region}</span>
+          </div>
+          <div className="donor-card-detail-row donor-card-detail-row-tags">
+            <span className="donor-card-label">Other Tags</span>
+            <span className="donor-card-value donor-card-value-tags">{donor.otherTags}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="donor-card-actions">
+        <button type="button" className="donor-card-btn donor-card-btn-secondary">Preview</button>
+        <button type="button" className="donor-card-btn donor-card-btn-primary">Save</button>
+      </div>
+    </article>
+  );
+}
+
 export default function ExploreDataPage() {
   const [openSections, setOpenSections] = useState({});
   const [density, setDensity] = useState('Normal');
   const [filters, setFilters] = useState(INITIAL_DONOR_FILTERS);
   const [sampleFilters, setSampleFilters] = useState(INITIAL_SAMPLE_FILTERS);
+  const [showResults, setShowResults] = useState(false);
 
   const toggleSection = (key) => {
     setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -207,10 +402,11 @@ export default function ExploreDataPage() {
   const handleClear = () => {
     setFilters(INITIAL_DONOR_FILTERS);
     setSampleFilters(INITIAL_SAMPLE_FILTERS);
+    setShowResults(false);
   };
 
   const handleApply = () => {
-    // TODO: apply filters and fetch data
+    setShowResults(true);
   };
 
   /* Renders a filter group with header + or/and toggle + checkbox grid */
@@ -514,10 +710,17 @@ export default function ExploreDataPage() {
 
         {/* Main content area */}
         <main className="explore-content">
-          {/* TODO: donor cards grid */}
-          <p style={{ color: '#86837e', textAlign: 'center', marginTop: 80 }}>
-            Donor cards will appear here
-          </p>
+          {showResults ? (
+            <div className={`donor-results donor-results-${density.toLowerCase()}`}>
+              {MOCK_DONOR_CARDS.map((donor) => (
+                <DonorCard key={donor.id} donor={donor} />
+              ))}
+            </div>
+          ) : (
+            <div className="explore-empty-state">
+              <p className="explore-empty-text">Apply filters to preview mocked donor cards.</p>
+            </div>
+          )}
         </main>
       </div>
     </div>

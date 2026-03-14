@@ -35,7 +35,7 @@ root.render(
           display: 'flex', flexDirection: 'column'
         }}>
           <BrowserRouter>
-            <div style={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
               <NavBar />
               <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                 <Routes>
