@@ -214,7 +214,6 @@
 }
 
 .donor-card {
-  min-height: 412px;
   padding: 16px;
   border: 1px solid #d9e2f0;
   border-radius: 20px;
@@ -234,7 +233,6 @@
 }
 
 .donor-card-body {
-  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -249,7 +247,7 @@
 .donor-card-inline-pair,
 .donor-card-detail-row {
   display: flex;
-  align-items: flex-start;
+  align-items: baseline;
   gap: 8px;
 }
 
@@ -272,7 +270,7 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
-  color: #2c2c2b;
+  color: #406eb4;
   flex-shrink: 0;
 }
 
@@ -293,7 +291,7 @@
 }
 
 .donor-card-actions {
-  margin-top: 16px;
+  margin-top: 8px;
   display: flex;
   justify-content: flex-end;
   gap: 12px;
