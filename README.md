@@ -1,72 +1,80 @@
-# THIS IS DEVLOPMENT BRANCH
+# MAI-T1D Frontend
 
-# Getting Started with Create React App
+**Multimodal AI in Type 1 Diabetes** — a web application for exploring multimodal T1D research data and querying a biomedical knowledge graph through natural language.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About the Project
 
-## Available Scripts
+MAI-T1D provides researchers with two primary capabilities:
 
-In the project directory, you can run:
+- **Explore Data** — Browse and filter donor, sample, and model information from T1D studies. Filters include clinical attributes (age, sex, BMI, HbA1c, clinical diagnosis, T1D stage, disease status, autoantibodies) and sample attributes (features, cell types, processing types, and data modalities such as CODEX, IMC, scRNA-seq, ATAC-seq, and more). Logical AND/OR operators allow fine-grained queries across categories.
 
-### `npm start`
+- **AI Chat** — Ask natural language questions about T1D-related genes, diseases, SNPs, and other biomedical entities. Questions are sent to a backend AI agent service that queries the PanKgraph knowledge graph, searches literature, and returns formatted, cited answers.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Frontend Architecture
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Tech Stack
 
-### `npm test`
+| Layer | Technology |
+|---|---|
+| UI Framework | React 18 |
+| State Management | Redux Toolkit |
+| UI Components | MUI v5 |
+| Routing | React Router DOM v6 |
+| HTTP Client | Axios |
+| Graph Visualization | Cytoscape.js |
+| Markdown Rendering | react-markdown + remark/rehype plugins |
+| Build | Create React App with CRACO overrides |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Project Structure
 
-### `npm run build`
+```
+src/
+├── index.js              # App entry, route definitions
+├── pages/
+│   ├── AIChatPage.js     # AI chat interface
+│   └── ExploreDataPage.js # Data exploration with filters
+├── redux/
+│   ├── store.js          # Redux store configuration
+│   ├── aiAgentSlice.js   # AI query dispatch & response handling
+│   ├── aiAnswerSlice.js  # AI-generated summary requests
+│   ├── feedbackSlice.js  # User feedback submission
+│   └── uiSlice.ts        # UI state
+├── axios/
+│   └── axios.js          # Axios instances for API communication
+├── components/           # Shared components
+├── NavBar/               # Navigation bar
+├── Footer/               # Page footer
+└── theme/                # MUI theme configuration
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Routes
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+| Path | Page | Description |
+|---|---|---|
+| `/` | Home | Landing page |
+| `/explore-data` | ExploreDataPage | Data exploration with filter sidebar |
+| `/ai-chat` | AIChatPage | Natural language Q&A interface |
+| `/publication` | Publication | Publications listing |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Data Flow
 
-### `npm run eject`
+User questions submitted through AI Chat are sent to the backend agent server (`POST /query`). The PlannerAgent orchestrates sub-agents to query the PanKgraph Neo4j knowledge graph via auto-generated Cypher, search literature, and match templates. Results are formatted with markdown and citations, then returned to the frontend via Redux async thunks.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Getting Started
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Prerequisites
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Node.js (v16+)
+- npm
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Installation
 
-## Learn More
+```bash
+npm install
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Available Scripts
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **`npm start`** — Run in development mode at [http://localhost:3000](http://localhost:3000)
+- **`npm run build`** — Build for production into the `build/` folder
+- **`npm test`** — Launch the test runner

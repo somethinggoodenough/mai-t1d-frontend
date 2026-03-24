@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-
 import Slider from '@mui/material/Slider';
-
+import { fetchDonors } from '../utils/donorQuery';
 import './ExploreDataPage.css';
 
 const FILTER_SECTIONS = [
@@ -32,7 +31,6 @@ const AUTO_ANTIBODY_OPTIONS = ['GADA', 'IA-2', 'IAA', 'ZnT8'];
 
 const AUTO_ANTIBODY_POSITIVE_OPTIONS = ['0', '1', '2', '3', '4'];
 
-/* === Sample Information filter options === */
 const FEATURE_OPTIONS = ['Protein/ADT', 'RNA', 'scRNA', 'ATAC', 'scATAC'];
 
 const CELL_TYPE_OPTIONS = [
@@ -63,14 +61,12 @@ const activeSliderSx = {
   '& .MuiSlider-rail': { backgroundColor: '#d9e2f0', opacity: 1 },
 };
 
-/* Reusable checkbox SVG */
 const CheckIcon = () => (
   <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
     <path d="M1 4L3.5 6.5L9 1" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
-/* Info icon for T1D Stage */
 const InfoIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="8" cy="8" r="6.5" stroke="#a5a5a5" strokeWidth="1.2" />
@@ -79,7 +75,6 @@ const InfoIcon = () => (
   </svg>
 );
 
-/* Reusable filter checkbox */
 function FilterCheckbox({ checked, onChange, label, extraIcon }) {
   return (
     <label className={`filter-cb-label ${checked ? 'filter-cb-checked' : ''}`}>
@@ -93,7 +88,6 @@ function FilterCheckbox({ checked, onChange, label, extraIcon }) {
   );
 }
 
-/* Reusable range slider with checkbox */
 function FilterSliderRow({ checked, onCheck, label, value, min, max, step, onChange, minLabel, maxLabel }) {
   return (
     <div className="filter-slider-row">
@@ -124,7 +118,6 @@ function FilterSliderRow({ checked, onCheck, label, value, min, max, step, onCha
   );
 }
 
-/* Or / And toggle */
 function RelationToggle({ value, onChange }) {
   return (
     <div className="relation-toggle">
@@ -170,17 +163,69 @@ const INITIAL_SAMPLE_FILTERS = {
   dataModalityRelation: 'and',
 };
 
+function DonorCard({ donor }) {
+  return (
+    <article className="donor-card">
+      <h3 className="donor-card-title">{donor.id}</h3>
+
+      <div className="donor-card-body">
+        <div className="donor-card-topline">
+          <div className="donor-card-inline-pair">
+            <span className="donor-card-label">Age</span>
+            <span className="donor-card-value">{donor.age}</span>
+          </div>
+          <div className="donor-card-inline-pair">
+            <span className="donor-card-label">Sex</span>
+            <span className="donor-card-value">{donor.sex}</span>
+          </div>
+          <div className="donor-card-inline-pair">
+            <span className="donor-card-label">BMI</span>
+            <span className="donor-card-value">{donor.bmi}</span>
+          </div>
+        </div>
+
+        <div className="donor-card-detail-list">
+          <div className="donor-card-detail-row">
+            <span className="donor-card-label">Disease Status</span>
+            <span className="donor-card-value">{donor.diseaseStatus}</span>
+          </div>
+          <div className="donor-card-detail-row">
+            <span className="donor-card-label">Program</span>
+            <span className="donor-card-value">{donor.program}</span>
+          </div>
+          <div className="donor-card-detail-row">
+            <span className="donor-card-label">Cell Type</span>
+            <span className="donor-card-value">{donor.cellType}</span>
+          </div>
+          <div className="donor-card-detail-row">
+            <span className="donor-card-label">Region</span>
+            <span className="donor-card-value">{donor.region}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="donor-card-actions">
+        <button type="button" className="donor-card-btn donor-card-btn-secondary">Preview</button>
+        <button type="button" className="donor-card-btn donor-card-btn-primary">Save</button>
+      </div>
+    </article>
+  );
+}
+
 export default function ExploreDataPage() {
   const [openSections, setOpenSections] = useState({});
   const [density, setDensity] = useState('Normal');
   const [filters, setFilters] = useState(INITIAL_DONOR_FILTERS);
   const [sampleFilters, setSampleFilters] = useState(INITIAL_SAMPLE_FILTERS);
+  const [donorCards, setDonorCards] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [queryError, setQueryError] = useState(null);
+  const [showResults, setShowResults] = useState(false);
 
   const toggleSection = (key) => {
     setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
-  /* Generic toggle helper for checkbox maps */
   const toggleFilter = (group, key) => {
     setFilters((prev) => ({
       ...prev,
@@ -192,7 +237,6 @@ export default function ExploreDataPage() {
     setFilters((prev) => ({ ...prev, [key]: value }));
   };
 
-  /* Sample filter helpers */
   const toggleSampleFilter = (group, key) => {
     setSampleFilters((prev) => ({
       ...prev,
@@ -207,13 +251,26 @@ export default function ExploreDataPage() {
   const handleClear = () => {
     setFilters(INITIAL_DONOR_FILTERS);
     setSampleFilters(INITIAL_SAMPLE_FILTERS);
+    setDonorCards([]);
+    setQueryError(null);
+    setShowResults(false);
   };
 
-  const handleApply = () => {
-    // TODO: apply filters and fetch data
+  const handleApply = async () => {
+    setIsLoading(true);
+    setQueryError(null);
+    setShowResults(true);
+    try {
+      const cards = await fetchDonors(filters, sampleFilters);
+      setDonorCards(cards);
+    } catch (err) {
+      setQueryError(err.message || 'Failed to fetch donors');
+      setDonorCards([]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  /* Renders a filter group with header + or/and toggle + checkbox grid */
   const renderToggleCheckboxGroup = (title, options, stateKey, relationKey, stateObj, toggleFn, setValFn) => (
     <div className="filter-group">
       <div className="filter-group-header-row">
@@ -514,10 +571,33 @@ export default function ExploreDataPage() {
 
         {/* Main content area */}
         <main className="explore-content">
-          {/* TODO: donor cards grid */}
-          <p style={{ color: '#86837e', textAlign: 'center', marginTop: 80 }}>
-            Donor cards will appear here
-          </p>
+          {!showResults && (
+            <div className="explore-empty-state">
+              <p className="explore-empty-text">Apply filters to search donor cards.</p>
+            </div>
+          )}
+          {showResults && isLoading && (
+            <div className="explore-empty-state">
+              <p className="explore-empty-text">Loading donors...</p>
+            </div>
+          )}
+          {showResults && !isLoading && queryError && (
+            <div className="explore-empty-state">
+              <p className="explore-empty-text">Error: {queryError}</p>
+            </div>
+          )}
+          {showResults && !isLoading && !queryError && donorCards.length === 0 && (
+            <div className="explore-empty-state">
+              <p className="explore-empty-text">No donors match the selected filters.</p>
+            </div>
+          )}
+          {showResults && !isLoading && !queryError && donorCards.length > 0 && (
+            <div className={`donor-results donor-results-${density.toLowerCase()}`}>
+              {donorCards.map((donor) => (
+                <DonorCard key={donor.id} donor={donor} />
+              ))}
+            </div>
+          )}
         </main>
       </div>
     </div>
